@@ -1,3 +1,4 @@
 /data_raw
 /.vscode
-/__pycache__
+/__pychache__
+/venv
