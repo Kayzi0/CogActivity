@@ -1,6 +1,7 @@
 import os
 import numpy as np
-from scipy.signal import decimate
+from scipy import signal
+from sklearn import preprocessing
 
 def load_data(filename, type):
     if type == "test":
@@ -16,5 +17,40 @@ def downsample(data, target_size):
     
     for i in range(data.shape[0]):
         for j in range(data.shape[2]):
-            downsampled_data[i,:,j] = decimate(data[i,:,j], downsample_factor)
+            downsampled_data[i,:,j] = signal.decimate(data[i,:,j], downsample_factor)
     return downsampled_data
+
+def upsample(data, target_size):
+    upsampled_data = np.zeros((data.shape[0], target_size, data.shape[2]))
+
+    for i in range(data.shape[0]):
+        for j in range(data.shape[2]):
+            upsampled_data[i,:,j] = signal.resample(data[i,:,j], target_size)
+    
+    return upsampled_data
+
+def minmaxnormalise(data):
+    minmax_data = np.copy(data)
+    for i in range(data.shape[2]):
+        minmax_data[:,:,i] = preprocessing.minmax_scale(data[:,:,i])
+    return minmax_data
+
+def denoise(data):
+    denoised_data = np.copy(data)
+    for i in range(data.shape[0]):
+        for j in range(data.shape[2]):
+            denoised_data[i,:,j] = signal.wiener(data[i,:,j])
+
+    return denoised_data
+
+def preprocess_data(data, sampling_type = "downsample", target_size = 200):
+    if sampling_type == "upsample":
+        out_data = upsample(data, target_size)
+    elif sampling_type == "downsample":
+        out_data = downsample(data, target_size)
+
+    out_data = denoise(out_data)
+    out_data = minmaxnormalise(out_data)
+
+    return out_data
+    
