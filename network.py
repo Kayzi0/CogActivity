@@ -20,16 +20,20 @@ class ConvNet (nn.Module):
             nn.ReLU()
         )
 
+        self.pool = nn.AdaptiveAvgPool2d(output_size=1)
+
         self.classifier = nn.Sequential(
-            nn.Conv2d(in_channels=32, out_channels=55, kernel_size=3, padding=1, bias=True)
+            nn.Flatten(),
+            nn.Linear(in_features=32, out_features=55)
         )
 
     def forward(self, x):
         x = self.encoder(x)
+        x = self.pool(x)
         x = self.classifier(x)
 
         return x
 
 
 if __name__ == '__main__':
-    summary(ConvNet(in_channels=9), (9, 200, 3))
+    summary(ConvNet(), (9, 200, 3))
