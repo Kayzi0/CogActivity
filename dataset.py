@@ -17,8 +17,8 @@ class CogDataset(Dataset):
 
         # shape = [datasets, time series, channels, devices]
         self.data_train = [self.data[i] for i in perm[:split]]
-        self.labels_train = [self.data[i] for i in perm[:split]]
-        self.data_val = [self.labels[i] for i in perm[split:]]
+        self.labels_train = [self.labels[i] for i in perm[:split]]
+        self.data_val = [self.data[i] for i in perm[split:]]
         self.labels_val = [self.labels[i] for i in perm[split:]]
 
     
