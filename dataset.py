@@ -23,7 +23,10 @@ class CogDataset(Dataset):
 
     
     def __len__(self):
-        return len(self.data)
+        if self.train:
+            return len(self.data_train)
+        
+        return len(self.data_val)
         
 
     def __getitem__(self, idx):
