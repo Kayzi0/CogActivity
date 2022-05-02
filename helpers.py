@@ -43,10 +43,10 @@ def denoise(data):
 
     return denoised_data
 
-def preprocess_data(data, sampling_type = "downsample", target_size = 200):
-    if sampling_type == "upsample":
+def preprocess_data(data, sampling_type = "decimate", target_size = 200):
+    if sampling_type == "resample":
         out_data = upsample(data, target_size)
-    elif sampling_type == "downsample":
+    elif sampling_type == "decimate":
         out_data = downsample(data, target_size)
 
     out_data = denoise(out_data)
