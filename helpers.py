@@ -50,7 +50,7 @@ def preprocess_data(data, sampling_type = "decimate", target_size = 200):
         out_data = downsample(data, target_size)
 
     out_data = denoise(out_data)
-    #out_data = minmaxnormalise(out_data)
+    out_data = minmaxnormalise(out_data)
 
     return out_data
     
