@@ -7,17 +7,17 @@ class ConvNet (nn.Module):
         super().__init__()
 
         self.encoder = nn.Sequential(
-            nn.Conv2d(in_channels=9, out_channels=16, kernel_size=3, padding=1, bias=False, stride=2),
-            nn.InstanceNorm2d(num_features=16),
-            nn.ReLU(),
+            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, padding=1, bias=False, stride=2),
+            nn.BatchNorm2d(num_features=16),
+            nn.Tanh(),
 
             nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1, bias=False, stride=2),
-            nn.InstanceNorm2d(num_features=32),
-            nn.ReLU(),
+            nn.BatchNorm2d(num_features=32),
+            nn.Tanh(),
 
             nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, bias=False),
-            nn.InstanceNorm2d(num_features=64),
-            nn.ReLU()
+            nn.BatchNorm2d(num_features=64),
+            nn.Tanh()
         )
 
         self.pool = nn.AdaptiveAvgPool2d(output_size=1)
@@ -36,4 +36,4 @@ class ConvNet (nn.Module):
 
 
 if __name__ == '__main__':
-    summary(ConvNet(), (9, 200, 3))
+    summary(ConvNet(), (8, 200, 3))
