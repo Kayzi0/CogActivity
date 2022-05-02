@@ -7,7 +7,7 @@ class ConvNet (nn.Module):
         super().__init__()
 
         self.encoder = nn.Sequential(
-            nn.Conv2d(in_channels=9, out_channels=16, kernel_size=3, padding=1, bias=False, stride=2),
+            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, padding=1, bias=False, stride=2),
             nn.BatchNorm2d(num_features=16),
             nn.Tanh(),
 
@@ -36,4 +36,4 @@ class ConvNet (nn.Module):
 
 
 if __name__ == '__main__':
-    summary(ConvNet(), (9, 200, 3))
+    summary(ConvNet(), (8, 200, 3))
