@@ -7,3 +7,4 @@ __pycache__/helpers.cpython-38.pyc
 __pycache__/dataset.cpython-38.pyc
 __pycache__/network.cpython-38.pyc
 .ipynb_checkpoints
+__pycache__/resnet.cpython-38.pyc
