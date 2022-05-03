@@ -24,7 +24,7 @@ class ConvNet (nn.Module):
         )
 
         self.pool = nn.AdaptiveAvgPool1d(output_size=1)
-
+        #self.convclass = nn.Conv1d(in_channels=128, out_channels=55, kernel_size=1, bias= True)
         self.classifier = nn.Sequential(
             nn.Flatten(),
             nn.Linear(in_features=128, out_features=55)
@@ -33,8 +33,8 @@ class ConvNet (nn.Module):
     def forward(self, x):
         x = self.encoder(x)
         x = self.pool(x)
+        #x = self.convclass(x)
         x = self.classifier(x)
-
         return x
 
 
