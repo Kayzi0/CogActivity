@@ -7,24 +7,27 @@ class ConvNet (nn.Module):
         super().__init__()
 
         self.encoder = nn.Sequential(
-            nn.Conv2d(in_channels=8, out_channels=16, kernel_size=3, padding=1, bias=False, stride=2),
-            nn.BatchNorm2d(num_features=16),
-            nn.Tanh(),
+            nn.Conv1d(in_channels=24, out_channels=32, kernel_size=5, padding=2, bias=False),
+            nn.BatchNorm1d(num_features=32),
+            nn.ReLU(),
+            nn.MaxPool1d(2),
 
-            nn.Conv2d(in_channels=16, out_channels=32, kernel_size=3, padding=1, bias=False, stride=2),
-            nn.BatchNorm2d(num_features=32),
-            nn.Tanh(),
+            nn.Conv1d(in_channels=32, out_channels=64, kernel_size=5, padding=2, bias=False),
+            nn.BatchNorm1d(num_features=64),
+            nn.ReLU(),
+            nn.MaxPool1d(2),
 
-            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(num_features=64),
-            nn.Tanh()
+            nn.Conv1d(in_channels=64, out_channels=128, kernel_size=5, padding=2, bias=False),
+            nn.BatchNorm1d(num_features=128),
+            nn.ReLU(),
+            nn.MaxPool1d(2)
         )
 
-        self.pool = nn.AdaptiveAvgPool2d(output_size=1)
+        self.pool = nn.AdaptiveAvgPool1d(output_size=1)
 
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=64, out_features=55)
+            nn.Linear(in_features=128, out_features=55)
         )
 
     def forward(self, x):
@@ -36,4 +39,4 @@ class ConvNet (nn.Module):
 
 
 if __name__ == '__main__':
-    summary(ConvNet(), (8, 200, 3))
+    summary(ConvNet(), (24, 200))
