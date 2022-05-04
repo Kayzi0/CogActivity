@@ -2,6 +2,7 @@ import os
 import numpy as np
 from scipy import signal
 from sklearn import preprocessing
+import torch
 
 def load_data(filename, type):
     if type == "test":
@@ -54,3 +55,28 @@ def preprocess_data(data, sampling_type = "decimate", target_size = 200):
 
     return out_data
     
+# confusion matrix
+def confusion_mat(prediction, target):
+    conf_mat = torch.zeros(55, 55)
+    
+    prediction = torch.argmax(prediction, dim=1)
+    for i in range(prediction.size(0)):
+        conf_mat[prediction[i],target[i]] += 1
+        
+    return conf_mat
+
+# average f1 score 
+def f1_score(conf_mat):
+    prediction_sum = torch.sum(conf_mat, dim=0)
+    target_sum = torch.sum(conf_mat, dim=1)
+
+    f_scores = []
+
+    for i in range(55):
+        f = 2 * conf_mat[i,i]
+        f /= (prediction_sum[i] + target_sum[i])
+        f_scores.append(f)
+    
+    f1 = sum(f_scores) / 55
+    
+    return f1.item()
