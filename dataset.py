@@ -35,3 +35,16 @@ class CogDataset(Dataset):
         
         return self.data_val[idx], self.labels_val[idx]
 
+    
+class CogDatasetTest(Dataset):
+    def __init__(self, data, labels):
+        self.data = torch.from_numpy(data)
+        self.labels = torch.from_numpy(labels)
+        self.num_labels = torch.bincount(self.labels)
+  
+    def __len__(self):
+        return len(self.data)
+        
+    def __getitem__(self, idx):
+        return self.data[idx], self.labels[idx]
+
