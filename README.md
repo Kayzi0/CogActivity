@@ -3,4 +3,4 @@ Activity Monitoring and pattern recognition exercise on the cognitive village da
 
 ## Trained models
 - net_0.pt: ConvNet, 62% test accuracy
-- net_1.pt: ResNet
+- net_2.pt: ResNet, 64% test accuracy
