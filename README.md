@@ -17,7 +17,7 @@ We use a fairly general-purpose deep-learning approach to perform the classifica
 
 The raw data is already seperated into training and testing data, so no manual seperating is necessary. As the individual observations are all four seconds long, but sampled at different frequencies, the data for each individual sensor is of shape `Nx4*Frequencyx3`. 
 
-In order to combine the data into one dataset, manipulating the data to have the same shape is necessary. To achieve this, we resampled all of the sensor data to 200Hz. As some of the data has a lower, and some of the data has a higher frequency, some had to be umsampled, while some had to be decimated. We dediced on a frequency in the middle of the obvervations in order to minimise the loss of the resampling process.
+In order to combine the data into one dataset, manipulating the data to have the same shape is necessary. To achieve this, we resampled all of the sensor data to 200Hz. As some of the data has a lower, and some of the data has a higher frequency, some had to be unsampled, while some had to be decimated. We deciced on a frequency in the middle of the obsvervations in order to minimise the loss of the resampling process.
 
 Secondly, the data was denoised using a [Wiener-Filter](https://en.wikipedia.org/wiki/Wiener_filter).
 
